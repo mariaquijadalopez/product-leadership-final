@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meridian Foundations - Outcome Roadmap</title>
+    <style>
+        :root {
+            --primary: #1e293b;
+            --primary-light: #334155;
+            --accent: #f97316;
+            --accent-hover: #ea580c;
+            --now-color: #ef4444;
+            --now-bg: #fef2f2;
+            --next-color: #eab308;
+            --next-bg: #fef9c3;
+            --later-color: #3b82f6;
+            --later-bg: #eff6ff;
+            --hard-no-color: #64748b;
+            --hard-no-bg: #f8fafc;
+            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 24px 40px;
+            border-bottom: 4px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        .header-content p {
+            margin: 8px 0 0 0;
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        .team-badge {
+            background-color: var(--accent);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Summary Panel */
+        .summary-panel {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: var(--card-shadow);
+            border-left: 5px solid var(--accent);
+        }
+
+        .summary-panel h2 {
+            margin: 0 0 12px 0;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .summary-item {
+            font-size: 14px;
+        }
+
+        .summary-item strong {
+            color: var(--primary-light);
+            display: block;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Roadmap Grid */
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .roadmap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .column {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            border-top: 5px solid var(--column-color);
+        }
+
+        .column.now { --column-color: var(--now-color); }
+        .column.next { --column-color: var(--next-color); }
+        .column.later { --column-color: var(--later-color); }
+
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
+        }
+
+        .column-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .column-badge {
+            background-color: var(--column-bg);
+            color: var(--column-color);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
+            border-color: var(--column-color);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .item-num {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--column-color);
+            background-color: var(--column-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .okr-badge {
+            font-size: 11px;
+            font-weight: 600;
+            background-color: #f1f5f9;
+            color: #475569;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: var(--text-dark);
+        }
+
+        .card-description {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0 0 12px 0;
+        }
+
+        .rationale {
+            background-color: #f8fafc;
+            border-left: 3px solid var(--column-color);
+            padding: 6px 10px;
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .success-signal {
+            border-top: 1px dashed #e2e8f0;
+            padding-top: 10px;
+            font-size: 12px;
+        }
+
+        .success-label {
+            font-weight: 700;
+            color: var(--primary-light);
+            font-size: 11px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .success-text {
+            color: #047857;
+            font-weight: 500;
+        }
+
+        /* Hard Nos Section */
+        .hard-no-section {
+            margin-top: 40px;
+            background-color: #f8fafc;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .hard-no-section h2 {
+            margin: 0 0 16px 0;
+            font-size: 20px;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hard-no-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .hard-no-card {
+            background-color: white;
+            border-left: 4px solid #94a3b8;
+            padding: 16px;
+            border-radius: 6px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .hard-no-title {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: #475569;
+        }
+
+        .hard-no-reason {
+            font-size: 13px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .hard-no-num {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>Meridian Foundations</h1>
+            <p>Frontline Adoption & Expansion Outcome Roadmap (Q4 2026)</p>
+        </div>
+        <div class="team-badge">
+            Squad: Field Adoption (Team of 10)
+        </div>
+    </header>
+
+    <main>
+        <!-- Strategic OKR Summary -->
+        <div class="summary-panel">
+            <h2>🎯 Connected OKR Cascade</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <strong>Objective</strong>
+                    Establish Meridian as the undisputed daily habit for frontline field crews, turning raw field activity into high-value compliance data.
+                </div>
+                <div class="summary-item">
+                    <strong>KR1 (Adoption)</strong>
+                    Increase mobile daily log submission rates on active projects from 15% to 70%.
+                </div>
+                <div class="summary-item">
+                    <strong>KR2 (Friction)</strong>
+                    Reduce log completion times to under 3 minutes with 95%+ data completeness.
+                </div>
+                <div class="summary-item">
+                    <strong>KR3 (Retention)</strong>
+                    Decrease monthly mid-market churn due to lack of adoption from 4.2% to < 1.0%.
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap Pillars -->
+        <div class="roadmap-grid">
+            
+            <!-- NOW COLUMN -->
+            <div class="column now">
+                <div class="column-header">
+                    <h3 class="column-title" style="color: var(--now-color);">🔴 Now</h3>
+                    <span class="column-badge" style="background-color: var(--now-bg); color: var(--now-color);">0 - 3 Months</span>
+                </div>
+
+                <!-- Card 1 -->
+                <div class="card" style="--column-color: var(--now-color); --column-bg: var(--now-bg);">
+                    <div class="card-meta">
+                        <span class="item-num">Item #7</span>
+                        <span class="okr-badge">KR1 & KR3</span>
+                    </div>
+                    <h4 class="card-title">Create Foreman-Facing Mobile App</h4>
+                    <p class="card-description"><strong>Outcome Bet:</strong> We bet creating a separate, lightweight mobile-only app container for foremen will eliminate corporate back-office administrative clutter and drive high-frequency daily adoption for active field crews.</p>
+                    <div class="success-signal">
+                        <span class="success-label">Success Signal</span>
+                        <span class="success-text">• Weekly Active Users (WAU) on mobile increases by 35%<br>• Foremen app rating reaches 4.5/5</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card" style="--column-color: var(--now-color); --column-bg: var(--now-bg);">
+                    <div class="card-meta">
+                        <span class="item-num">Item #1</span>
+                        <span class="okr-badge">KR1 & KR2</span>
+                    </div>
+                    <h4 class="card-title">Offline-First Mobile Experience</h4>
+                    <p class="card-description"><strong>Outcome Bet:</strong> We bet building a robust offline-first synchronization engine with local SQLite caching and background syncing will prevent daily log upload failures (dropping failure rate from 12% to &lt; 1%) for foremen working on job sites with poor connectivity.</p>
+                    <div class="success-signal">
+                        <span class="success-label">Success Signal</span>
+                        <span class="success-text">• Log upload failure rate drops from 12% to < 1%<br>• 100% offline logs successfully sync upon reconnect</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card" style="--column-color: var(--now-color); --column-bg: var(--now-bg);">
+                    <div class="card-meta">
+                        <span class="item-num">Item #4</span>
+                        <span class="okr-badge">KR2</span>
+                    </div>
+                    <h4 class="card-title">Simplify the Daily Log</h4>
+                    <p class="card-description"><strong>Outcome Bet:</strong> We bet reducing the required daily log form fields from 14 to 4 critical compliance items will slash the average log submission time from 25 minutes to under 3 minutes (maintaining 95%+ data completeness) for busy foremen at the end of their shifts.</p>
+                    <div class="success-signal">
+                        <span class="success-label">Success Signal</span>
+                        <span class="success-text">• Average logging time drops from 25 to < 3 mins<br>• Data completeness rating remains at 95%+</span>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card" style="--column-color: var(--now-color); --column-bg: var(--now-bg);">
+                    <div class="card-meta">
+                        <span class="item-num">Item #8</span>
+                        <span class="okr-badge">KR3</span>
+                    </div>
+                    <h4 class="card-title">Fix Procore Sync Integration</h4>
+                    <p class="card-description"><strong>Outcome Bet:</strong> We bet patching and restoring the core Procore API sync adapters will eliminate manual data export friction and prevent immediate account churn for our 2 at-risk Procore-dependent clients.</p>
+                    <div class="success-signal">
+                        <span class="success-label">Success Signal</span>
+                        <span class="success-text">• Procore sync restored successfully for affected GCs<br>• At-risk account sentiment restored to green</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEXT COLUMN -->
+            <div class="column next">
+                <div class="column-header">
+                    <h3 class="column-title" style="color: var(--next-color);">🟡 Next</h3>
+                    <span class="column-badge" style="background-color: var(--next-bg); color: var(--next-color);">3 - 6 Months</span>
+                </div>
+
+                <!-- Card 1 -->
+                <div class="card" style="--column-color: var(--next-color); --column-bg: var(--next-bg);">
+                    <div class="card-meta">
+                        <span class="item-num">Item #11</span>
+                        <span class="okr-badge">KR1</span>
+                    </div>
+                    <h4 class="card-title">Push Notifications for Schedule</h4>
+                    <div class="rationale">Rationale: Comes after Now because the standalone mobile app container (Item 7) must be live first before we can route push alerts.</div>
+                    <p class="card-description"><strong>Low-Latency Scheduling Alerts:</strong> Keep field crews instantly aligned on critical schedule updates through automatic mobile push notifications.</p>
+                    <div class="success-signal">
+                        <span class="success-label">Success Signal</span>
+                        <span class="success-text">• Response time for field crew alignment drops by 50%<br>• In-app notification tap-through rate exceeds 80%</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card" style="--column-color: var(--next-color); --column-bg: var(--next-bg);">
+                    <div class="card-meta">
+                        <span class="item-num">Item #2</span>
+                        <span class="okr-badge">KR1 & KR2</span>
+                    </div>
+                    <h4 class="card-title">Photo Markup & Annotations</h4>
+                    <div class="rationale">Rationale: Comes after Now because we must first stabilize basic photo uploads offline (Item 1) before overlaying local photo annotation tools.</div>
+                    <p class="card-description"><strong>Visual Defect Communication:</strong> Provide lightweight on-site photo markups so superintendents can visually highlight and document specific job-site issues.</p>
+                    <div class="success-signal">
+                        <span class="success-label">Success Signal</span>
+                        <span class="success-text">• 80%+ of site defect photos include annotations<br>• Time-to-resolution for flagged issues drops by 30%</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card" style="--column-color: var(--next-color); --column-bg: var(--next-bg);">
+                    <div class="card-meta">
+                        <span class="item-num">Item #6</span>
+                        <span class="okr-badge">KR2</span>
+                    </div>
+                    <h4 class="card-title">Real-Time Weather Integration</h4>
+                    <div class="rationale">Rationale: Comes after Now because the daily log schema must be simplified (Item 4) before we automate input injectors like weather.</div>
+                    <p class="card-description"><strong>Automated Site Weather Logging:</strong> Automatically capture local meteorological logs on daily progress reports, saving foremen manual typing.</p>
+                    <div class="success-signal">
+                        <span class="success-label">Success Signal</span>
+                        <span class="success-text">• Time spent manually entering weather drops to zero<br>• Weather logs are 100% automated on daily logs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LATER COLUMN -->
+            <div class="column later">
+                <div class="column-header">
+                    <h3 class="column-title" style="color: var(--later-color);">🟢 Later</h3>
+                    <span class="column-badge" style="background-color: var(--later-bg); color: var(--later-color);">6 - 12 Months</span>
+                </div>
+
+                <!-- Card 1 -->
+                <div class="card" style="--column-color: var(--later-color); --column-bg: var(--later-bg);">
+                    <div class="card-meta">
+                        <span class="item-num">Item #3</span>
+                        <span class="okr-badge">Platform Scale</span>
+                    </div>
+                    <h4 class="card-title">Migrate Data Model for Multi-Project</h4>
+                    <div class="rationale">Bet, not commitment. Requires prior client database stabilization.</div>
+                    <p class="card-description"><strong>Multi-Project Platform Scale:</strong> Structural data model migration to allow general contractors to view cross-project rolled-up operational metrics.</p>
+                    <div class="success-signal">
+                        <span class="success-label">Success Signal</span>
+                        <span class="success-text">• Queries run across 100+ projects in < 2 seconds<br>• Tech debt eliminated for scalable data aggregation</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card" style="--column-color: var(--later-color); --column-bg: var(--later-bg);">
+                    <div class="card-meta">
+                        <span class="item-num">Item #5</span>
+                        <span class="okr-badge">Compliance</span>
+                    </div>
+                    <h4 class="card-title">Compliance Checklist Generator</h4>
+                    <div class="rationale">Bet, not commitment. Relies on stable frontline logging data.</div>
+                    <p class="card-description"><strong>Smart Compliance Checklist Generation:</strong> Automated rule parsing to auto-populate required safety checklist compliance requirements based on site stage.</p>
+                    <div class="success-signal">
+                        <span class="success-label">Success Signal</span>
+                        <span class="success-text">• Zero manual safety checklist prep required by office<br>• Compliance auditing times reduced by 40%</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card" style="--column-color: var(--later-color); --column-bg: var(--later-bg);">
+                    <div class="card-meta">
+                        <span class="item-num">Item #9</span>
+                        <span class="okr-badge">Innovation</span>
+                    </div>
+                    <h4 class="card-title">AI-Assisted RFI Drafting</h4>
+                    <div class="rationale">Bet, not commitment. Requires stabilized text structures.</div>
+                    <p class="card-description"><strong>AI-Assisted Field Query Drafting:</strong> Lightweight natural language processing to help foremen quickly draft and format professional, legally compliant field RFIs.</p>
+                    <div class="success-signal">
+                        <span class="success-label">Success Signal</span>
+                        <span class="success-text">• Average time to draft an RFI drops to < 5 mins<br>• Pilot foremen report 90%+ ease-of-use rating</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- The Hard Nos Section -->
+        <div class="hard-no-section">
+            <h2>❌ Strategic Vetoes (Hard Nos for Q4 2026)</h2>
+            <p style="font-size: 14px; color: #475569; margin: 0 0 20px 0;">To ensure our 10-person squad remains 100% focused on active job site adoption and stops the bleeding of our 4.2% mid-market churn, we are explicitly <strong>NOT</strong> building these items this quarter:</p>
+            <div class="hard-no-grid">
+                
+                <div class="hard-no-card">
+                    <div class="hard-no-meta">
+                        <span class="hard-no-num">Item #13</span>
+                    </div>
+                    <div class="hard-no-title">Refresh Web UI (Cosmetic sales request)</div>
+                    <p class="hard-no-reason"><strong>Why Not:</strong> Web-only styling changes consume massive frontend engineering time but provide zero daily functional value to the foreman working in the field.</p>
+                </div>
+
+                <div class="hard-no-card">
+                    <div class="hard-no-meta">
+                        <span class="hard-no-num">Item #10</span>
+                    </div>
+                    <div class="hard-no-title">Build Executive Dashboard with Custom KPIs</div>
+                    <p class="hard-no-reason"><strong>Why Not:</strong> B2B reports are useless without data. We cannot build executive analytical charts on databases that remain empty due to low frontline adoption.</p>
+                </div>
+
+                <div class="hard-no-card">
+                    <div class="hard-no-meta">
+                        <span class="hard-no-num">Item #14</span>
+                    </div>
+                    <div class="hard-no-title">Build Subcontractor Portal with Doc Sharing</div>
+                    <p class="hard-no-reason"><strong>Why Not:</strong> Developing multi-tenant security structures and document-sharing architecture requires a massive backend build that would fully consume our team of 10.</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
